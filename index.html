@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>İkbay için Özel 🎂</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+
+    body {
+        height: 100vh;
+        background: #050505;
+        overflow: hidden;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Arka Plan Hareketli Gradient */
+    .bg-animation {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
+        z-index: -1;
+    }
+
+    .card {
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 30px;
+        padding: 60px;
+        text-align: center;
+        box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        max-width: 500px;
+        width: 90%;
+        z-index: 10;
+        transition: all 0.5s ease;
+    }
+
+    h1 {
+        font-family: 'Dancing Script', cursive;
+        font-size: 4rem;
+        margin-bottom: 20px;
+        background: linear-gradient(90deg, #00f2ff, #ff00de, #ffcc00);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shine 3s linear infinite;
+    }
+
+    @keyframes shine {
+        to { background-position: 200% center; }
+    }
+
+    .typing {
+        font-size: 1.2rem;
+        min-height: 50px;
+        font-weight: 300;
+        letter-spacing: 1px;
+        color: #e0e0e0;
+    }
+
+    .btn-container { margin-top: 40px; }
+
+    button {
+        position: relative;
+        padding: 15px 40px;
+        border: none;
+        border-radius: 50px;
+        background: linear-gradient(45deg, #ff00de, #00f2ff);
+        color: white;
+        font-size: 1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(255, 0, 222, 0.3);
+    }
+
+    button:hover {
+        transform: scale(1.05) translateY(-3px);
+        box-shadow: 0 15px 30px rgba(0, 242, 255, 0.4);
+    }
+
+    button:active { transform: scale(0.95); }
+
+    /* Particles */
+    .particle {
+        position: absolute;
+        width: 2px; height: 2px;
+        background: white;
+        border-radius: 50%;
+        opacity: 0.3;
+        animation: float linear infinite;
+    }
+
+    @keyframes float {
+        from { transform: translateY(110vh) translateX(0); }
+        to { transform: translateY(-10vh) translateX(50px); }
+    }
+
+    /* Müzik Kontrol İkonu */
+    #music-status {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        font-size: 0.8rem;
+        opacity: 0.5;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="bg-animation"></div>
+
+<div class="card" id="mainCard">
+    <div style="font-size: 0.8rem; letter-spacing: 4px; opacity: 0.6; margin-bottom: 10px;">PREMIUM GREETING</div>
+    <h1>İkbal</h1>
+    <div class="typing" id="text"></div>
+    <div class="btn-container">
+        <button onclick="startExperience()" id="actionBtn">✨ KUTLAMAYI BAŞLAT</button>
+    </div>
+</div>
+
+<div id="music-status">Sistem Hazır.</div>
+
+<audio id="birthdaySong" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+<script>
+// Yazı Efekti
+const msg = "Zamanın bir önemi yok, senin enerjin yeter. Geçmiş doğum günün kutlu olsun İkbay! 🎂🎉";
+let i = 0;
+function type() {
+    if (i < msg.length) {
+        document.getElementById("text").innerHTML += msg[i++];
+        setTimeout(type, 50);
+    }
+}
+
+// Sayfa yüklenince yazmaya başla
+window.onload = type;
+
+// Arka plan yıldızları
+for(let j=0; j<80; j++) {
+    let p = document.createElement("div");
+    p.className = "particle";
+    p.style.left = Math.random() * 100 + "vw";
+    p.style.animationDuration = (Math.random() * 10 + 5) + "s";
+    p.style.opacity = Math.random();
+    document.body.appendChild(p);
+}
+
+// 🎆 ANA FONKSİYON
+function startExperience() {
+    const music = document.getElementById("birthdaySong");
+    const btn = document.getElementById("actionBtn");
+    const status = document.getElementById("music-status");
+
+    // Müziği Başlat (Kullanıcı etkileşimi olduğu için artık çalacaktır)
+    music.play().then(() => {
+        status.innerText = "Müzik Çalıyor... 🎵";
+    }).catch(e => {
+        console.log("Ses hatası:", e);
+        status.innerText = "Ses engellendi, lütfen tekrar tıkla.";
+    });
+
+    btn.innerText = "İYİ Kİ DOĞDUN! 🎉";
+    btn.style.background = "#fff";
+    btn.style.color = "#000";
+
+    // Sürekli Konfeti Patlaması
+    const end = Date.now() + (10 * 1000); // 10 Saniye sürsün
+
+    (function frame() {
+        // Sol taraftan
+        confetti({
+            particleCount: 3,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+            colors: ['#00f2ff', '#ff00de', '#ffcc00']
+        });
+        // Sağ taraftan
+        confetti({
+            particleCount: 3,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+            colors: ['#00f2ff', '#ff00de', '#ffcc00']
+        });
+
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
+        }
+    }());
+
+    // Büyük Patlamalar
+    const interval = setInterval(() => {
+        if (Date.now() > end) return clearInterval(interval);
+        
+        confetti({
+            particleCount: 100,
+            startVelocity: 30,
+            spread: 360,
+            origin: {
+                x: Math.random(),
+                y: Math.random() - 0.2
+            }
+        });
+    }, 1500);
+}
+</script>
+
+</body>
+</html>
